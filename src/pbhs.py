@@ -2,6 +2,17 @@ import math
 import pandas as pd
 import numpy as np
 
+import scipy.constants as const
+from astropy import constants as astro_const
+from decimal import Decimal
+
+
+solar_mass_grams = 1000 * astro_const.M_sun.value
+
+# Planck mass in kg
+planck_mass_g = np.sqrt(
+    (const.hbar * const.c) / const.G
+) * 1000
 
 # Formula for Hawking Temperature (T_bh)
 
@@ -68,7 +79,7 @@ def hawking_temp_from_solar_mass(M, M_solar):
 # T_bh_approximate = hawking_temp_from_solar_mass(M_bh, M_solar)
 
 
-def temperature_critical_mass(temperature_background):
+def critical_mass_for_bg_temperature(temperature_background):
     return 1.23e26/temperature_background
 
 def dm_dt(mass_grams, temperature):
@@ -76,5 +87,24 @@ def dm_dt(mass_grams, temperature):
     dm_dt_A = 3.96e24
     first_term = -dm_dt_A/mass_grams**2
     second_term = dm_dt_lambda *mass_grams**2 * temperature**4
-    return first_term + second_term, first_term, second_term
+
+    first_term_exp = extract_exponent_decimal(str(first_term))
+    second_term_exp = extract_exponent_decimal(str(second_term))
     
+    return first_term + second_term, first_term, second_term, first_term_exp == second_term_exp
+
+def extract_exponent_decimal(number_string):
+    """
+    Extracts the exponent from a number string in scientific notation.
+    """
+    # 1. Create a Decimal object from the string
+    d = Decimal(number_string)
+
+    # 2. Get the number's internal representation tuple
+    #    (sign, digits, exponent)
+    exponent = d.as_tuple().exponent
+
+    # For numbers in scientific notation, this exponent is the 'E' part.
+    # Note: Decimal uses a negative exponent for small numbers (e.g., -27)
+    # and a positive exponent for large numbers (e.g., 2).
+    return exponent
