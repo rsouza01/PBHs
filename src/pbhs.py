@@ -66,3 +66,15 @@ def hawking_temp_from_solar_mass(M, M_solar):
 # You would call the functions like this:
 # T_bh_fundamental = hawking_temp_from_fundamental(h_bar, c, k_b, G, M_bh)
 # T_bh_approximate = hawking_temp_from_solar_mass(M_bh, M_solar)
+
+
+def temperature_critical_mass(temperature_background):
+    return 1.23e26/temperature_background
+
+def dm_dt(mass_grams, temperature):
+    dm_dt_lambda = 1.75e-80
+    dm_dt_A = 3.96e24
+    first_term = -dm_dt_A/mass_grams**2
+    second_term = dm_dt_lambda *mass_grams**2 * temperature**4
+    return first_term + second_term, first_term, second_term  
+    
