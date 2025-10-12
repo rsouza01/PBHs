@@ -76,5 +76,5 @@ def dm_dt(mass_grams, temperature):
     dm_dt_A = 3.96e24
     first_term = -dm_dt_A/mass_grams**2
     second_term = dm_dt_lambda *mass_grams**2 * temperature**4
-    return first_term + second_term, first_term, second_term  
+    return first_term + second_term, first_term, second_term
     
