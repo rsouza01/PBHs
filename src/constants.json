@@ -1,0 +1,5 @@
+{
+  "M_CRITICAL": 1e20,
+  "MINIMUM_SURVIVING_MASS": 5e14,
+  "SIGMA_DIFF": 0.5
+}
