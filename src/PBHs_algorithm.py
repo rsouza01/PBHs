@@ -7,7 +7,7 @@ from scipy import constants
 from scipy.integrate import solve_ivp
 
 # Constants
-M_CRITICAL = 10**20  # Critical mass in grams
+M_CRITICAL = 1e20  # Critical mass in grams
 MINIMUM_SURVIVING_MASS = 5e14     # Minimum mass in grams
 SIGMA_DIFF = 0.5
 
@@ -34,4 +34,5 @@ def main() -> None:
     print(f"Evaporation time for {m} g = {evaporation_time(m)/1e9:.2e} billion years")
 
 if __name__ == "__main__":
+
     main()
